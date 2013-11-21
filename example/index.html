@@ -20,6 +20,7 @@
     <body>
 
         <div id="thing"></div>
+        <button>Hello!</button>
         <script>
             var S = require('slider')
             var q = require('query')
@@ -35,6 +36,10 @@
                 s.show(thing)
               else
                 s.hide()
+              showing = !showing
+            })
+            t.bind(q('button'), 'click', function () {
+              s.set(100)
             })
         </script>
     </body>

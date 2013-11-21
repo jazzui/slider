@@ -26,16 +26,17 @@ function Slider(initial, scale) {
   this.sliderInner = query('.slider-inner', this.el)
   this.sliderHandle = query('.slider-handle', this.el)
   event.bind(this.sliderHandle, 'mousedown', this.slideDown.bind(this))
-  // this.events = event(this.el, this)
-  // this.events.bind('mousedown')
   this.winEvents.bind('mousemove', 'slideMove')
   this.winEvents.bind('mouseup', 'slideUp')
-
 }
 
 Slider.prototype = new Tip
 
 _.extend(Slider.prototype, {
+  set: function (value, silent) {
+    this.value = this.initial = value
+    if (!this.silent) this.emit('change', value)
+  },
   slideMove: function (e) {
     if (!this.sliding) return
     e.preventDefault()
@@ -62,23 +63,6 @@ _.extend(Slider.prototype, {
     e.preventDefault()
     e.stopPropagation()
     return false
-  },
-  onmousedown: function () {
-    this.sliding = true
-    var self = this
-    function remove() {
-      document.body.removeEventListener('mousemove', move)
-      document.body.removeEventListener('mouseup', up)
-    }
-    function move(e) {
-      if (!self.sliding) return remove()
-      self.emit('change', 10)
-    }
-    function up(e) {
-      remove()
-    }
-    event.bind(document.body, 'mousemove', move)
-    event.bind(document.body, 'mouseup', up)
   }
 })
 
