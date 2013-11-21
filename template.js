@@ -1,0 +1,1 @@
+module.exports = '<div class="slider-container">\n  <div class="slider-inner">\n    <div class="slider-handle"></div>\n  </div>\n</div>\n';

@@ -1,0 +1,25 @@
+.slider-container {
+  width: 28px;
+  height: 17px;
+  position: relative;
+  z-index: 5000;
+}
+.slider-container .slider-inner {
+  position: absolute;
+  left: 50%;
+  height: 100%;
+  width: 0px;
+}
+.slider-container .slider-inner .slider-handle {
+  background-color: #fff;
+  width: 30px;
+  height: 18px;
+  position: absolute;
+  border-radius: 9px;
+  top: 50%;
+  margin-top: -11px;
+  margin-left: -16px;
+  cursor: pointer;
+  border: 1px solid #777;
+}
+

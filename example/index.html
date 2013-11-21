@@ -1,0 +1,42 @@
+<!doctype html5>
+<html>
+    <head>
+        <title>Hi</title>
+        <style>
+            body {
+                padding: 200px;
+            }
+            #thing {
+                width: 30px;
+                height: 20px;
+                background-color: green;
+                border-radius: 10px;
+                padding: 20px;
+            }
+        </style>
+        <link rel="stylesheet" href="../build/build.css">
+        <script src="../build/build.js"></script>
+    </head>
+    <body>
+
+        <div id="thing"></div>
+        <script>
+            var S = require('slider')
+            var q = require('query')
+            var t = require('event')
+            var s = new S
+            s.on('change', function (val) {
+              thing.innerHTML = val
+            })
+            var thing = q('#thing')
+              , showing = false
+            t.bind(thing, 'click', function () {
+              if (!showing)
+                s.show(thing)
+              else
+                s.hide()
+            })
+        </script>
+    </body>
+</html>
+

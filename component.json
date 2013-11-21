@@ -1,0 +1,27 @@
+{
+  "name": "slider",
+  "repo": "jazzui/slider",
+  "description": "A slider component",
+  "version": "0.0.1",
+  "keywords": [],
+  "dependencies": {
+    "component/aurora-tip": "*",
+    "component/events": "*",
+    "component/event": "*",
+    "component/query": "*",
+    "component/tip": "*",
+    "lodash/lodash": "*",
+    "jkroso/position": "*"
+  },
+  "development": {},
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": [
+    "index.js",
+    "template.js"
+  ],
+  "styles": [
+    "index.css"
+  ],
+  "remotes": []
+}
