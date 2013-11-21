@@ -40,7 +40,7 @@ Slider.prototype = new Tip()
 _.extend(Slider.prototype, {
   set: function (value, silent) {
     this.value = this.initial = value
-    if (!this.silent) this.emit('change', value)
+    if (!silent) this.emit('change', value)
   },
   slideMove: function (e) {
     if (!this.sliding) return
@@ -48,7 +48,7 @@ _.extend(Slider.prototype, {
     e.stopPropagation()
     var pos = position(this.sliderContainer)
       , num = (e.pageX - pos.left - 15)
-      , val = this.initial + num * this.opts.scale
+      , val = parseInt(this.initial + num * this.opts.scale, 10)
     if ('undefined' !== typeof this.opts.min && this.opts.min > val) {
       val = this.opts.min
       num = (val - this.initial)/this.opts.scale
@@ -57,9 +57,11 @@ _.extend(Slider.prototype, {
       val = this.opts.max
       num = (val - this.initial)/this.opts.scale
     }
-    this.sliderInner.style.marginLeft = num + 'px'
-    this.value = val
-    this.emit('change', this.value)
+    if (val !== this.value) {
+      this.sliderInner.style.marginLeft = num + 'px'
+      this.value = val
+      this.emit('change', this.value)
+    }
     return false
   },
   slideDown: function (e) {
