@@ -6,12 +6,15 @@
             body {
                 padding: 200px;
             }
-            #thing {
+            .box {
                 width: 30px;
                 height: 20px;
                 background-color: green;
                 border-radius: 10px;
                 padding: 20px;
+            }
+            #thing2 {
+                background-color: red;
             }
         </style>
         <link rel="stylesheet" href="../build/build.css">
@@ -19,8 +22,9 @@
     </head>
     <body>
 
-        <div id="thing"></div>
+        <div class="box" id="thing"></div>
         <button>Hello!</button>
+        <div class="box" id="thing2"></div>
         <script>
             var S = require('slider')
             var q = require('query')
@@ -41,6 +45,13 @@
             t.bind(q('button'), 'click', function () {
               s.set(100)
             })
+            
+            var s2 = new S({value: 30, min: 0, max: 100})
+            s2.on('change', function (val) {
+              thing2.innerHTML = val
+            })
+            var thing = q('#thing')
+            s2.show(thing2)
         </script>
     </body>
 </html>

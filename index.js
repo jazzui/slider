@@ -16,12 +16,17 @@ function domify(txt) {
   return d.firstChild
 }
 
-function Slider(initial, scale) {
+function Slider(opts) {
   Tip.call(this, template)
   this.sliding = false
-  this.initial = initial || 0
-  this.value = initial || 0
-  this.scale = scale || 1
+  opts = opts || {}
+  this.initial = this.value = opts.value || 0
+  if ('undefined' !== typeof opts.min &&
+      'undefined' !== typeof opts.max && !opts.scale) {
+    opts.scale = (opts.max - opts.min) / 200
+  }
+  opts.scale = opts.scale || 1
+  this.opts = opts
   this.sliderContainer = query('.slider-container', this.el)
   this.sliderInner = query('.slider-inner', this.el)
   this.sliderHandle = query('.slider-handle', this.el)
@@ -30,7 +35,7 @@ function Slider(initial, scale) {
   this.winEvents.bind('mouseup', 'slideUp')
 }
 
-Slider.prototype = new Tip
+Slider.prototype = new Tip()
 
 _.extend(Slider.prototype, {
   set: function (value, silent) {
@@ -43,8 +48,17 @@ _.extend(Slider.prototype, {
     e.stopPropagation()
     var pos = position(this.sliderContainer)
       , num = (e.pageX - pos.left - 15)
+      , val = this.initial + num * this.opts.scale
+    if ('undefined' !== typeof this.opts.min && this.opts.min > val) {
+      val = this.opts.min
+      num = (val - this.initial)/this.opts.scale
+    }
+    if ('undefined' !== typeof this.opts.max && this.opts.max < val) {
+      val = this.opts.max
+      num = (val - this.initial)/this.opts.scale
+    }
     this.sliderInner.style.marginLeft = num + 'px'
-    this.value = this.initial + num*this.scale
+    this.value = val
     this.emit('change', this.value)
     return false
   },

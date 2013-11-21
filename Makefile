@@ -11,6 +11,9 @@ template.js: template.html
 components: component.json
 	@component install --dev
 
+lint:
+	@jshint *.json *.js
+
 clean:
 	rm -fr build components template.js
 
